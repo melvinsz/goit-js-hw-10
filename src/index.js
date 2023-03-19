@@ -15,7 +15,17 @@ ref.input.addEventListener('input', debounce(inputFetch, DEBOUNCE_DELAY));
 function inputFetch() {
   const name = ref.input.value.trim();
   if (name !== '') {
-    fetchCountries(name).then(countries => renderMarkup(countries));
+    fetchCountries(name)
+      .then(countries => {
+        if (countries.length > 0) {
+          renderMarkup(countries);
+        } else {
+          Notiflix.Notify.failure('Oops, there is no country with that name');
+        }
+      })
+      .catch(error => {
+        Notiflix.Notify.failure('Oops, something went wrong');
+      });
   } else {
     ref.countryList.innerHTML = '';
     ref.countryInfo.innerHTML = '';
