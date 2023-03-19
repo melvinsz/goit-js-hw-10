@@ -21,6 +21,8 @@ function inputFetch() {
           renderMarkup(countries);
         } else {
           Notiflix.Notify.failure('Oops, there is no country with that name');
+          ref.countryList.innerHTML = '';
+          ref.countryInfo.innerHTML = '';
         }
       })
       .catch(error => {
