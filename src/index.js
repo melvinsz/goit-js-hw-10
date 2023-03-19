@@ -13,9 +13,9 @@ const ref = {
 ref.input.addEventListener('input', debounce(inputFetch, DEBOUNCE_DELAY));
 
 function inputFetch() {
-  const searchQuery = ref.input.value.trim();
-  if (searchQuery !== '') {
-    fetchCountries(searchQuery).then(countries => renderMarkup(countries));
+  const name = ref.input.value.trim();
+  if (name !== '') {
+    fetchCountries(name).then(countries => renderMarkup(countries));
   } else {
     ref.countryList.innerHTML = '';
     ref.countryInfo.innerHTML = '';
@@ -38,7 +38,7 @@ function appendInfoMarkup(country) {
   const { name, capital, population, flags, languages } = country;
   const language = Object.values(languages).join(', ');
 
-  const infoMarkup = `<h1><span>${flags.svg} </span> ${name.official}</h1> <p>Capital: ${capital}</p> <p>Population: ${population}</p> <p>Languages: ${language}</p>`;
+  const infoMarkup = `<h1><span><img src='${flags.svg}' height='15'></span> ${name.official}</h1></span> <p>Capital: ${capital}</p> <p>Population: ${population}</p> <p>Languages: ${language}</p>`;
   ref.countryInfo.innerHTML = infoMarkup;
   ref.countryList.innerHTML = '';
 }
@@ -47,7 +47,7 @@ function appendListMarkup(countries) {
   const listMarkup = countries
     .map(country => {
       const { name, flags } = country;
-      return `<li><h1><span>${flags.svg}</span>${name.official}</h1></li>`;
+      return `<li><h1><span><img src='${flags.svg}' height='15'></span>${name.official}</h1></li>`;
     })
     .join('');
   ref.countryList.innerHTML = listMarkup;
